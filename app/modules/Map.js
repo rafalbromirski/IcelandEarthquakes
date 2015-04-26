@@ -7,6 +7,23 @@ var {
 } = React;
 
 var Map = React.createClass({
+  getDefaultProps: function() {
+    return {
+      earthquake: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+      }
+    }
+  },
+
+  render: function() {
+    return (
+      <MapView annotations={this._getAnnotations()} region={this._getRegion()} style={styles.map} />
+    );
+  },
+
   _getAnnotations: function() {
     return [{
       latitude: this.props.earthquake.latitude,
@@ -22,12 +39,6 @@ var Map = React.createClass({
       latitudeDelta: 1,
       longitudeDelta: 1,
     }
-  },
-
-  render: function() {
-    return (
-      <MapView annotations={this._getAnnotations()} region={this._getRegion()} style={styles.map} />
-    );
   },
 });
 

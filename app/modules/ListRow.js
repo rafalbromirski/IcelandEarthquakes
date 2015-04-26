@@ -11,22 +11,14 @@ var {
 var moment = require('moment');
 
 var ListRow = React.createClass({
-  underlayColor: function() {
-    return '#f2f2f2';
-  },
-
-  getRelativeTime: function() {
-    return moment(this.props.earthquake.timestamp).startOf('hours').fromNow();
-  },
-
   render: function() {
     return (
-      <TouchableHighlight underlayColor={this.underlayColor()} onPress={this.props.onSelect}>
+      <TouchableHighlight underlayColor={this._getUnderlayColor()} onPress={this.props.onSelect}>
         <View style={styles.row}>
           <View style={styles.row__body}>
-            <Text style={styles.row__title}>{this.getTitle()}</Text>
+            <Text style={styles.row__title}>{this._getTitle()}</Text>
             <Text style={styles.row__timestamp}>
-              {this.getRelativeTime()}
+              {this._getRelativeTime()}
             </Text>
           </View>
           <Text style={styles.row__size}>
@@ -37,7 +29,15 @@ var ListRow = React.createClass({
     );
   },
 
-  getTitle: function() {
+  _getUnderlayColor: function() {
+    return '#f2f2f2';
+  },
+
+  _getRelativeTime: function() {
+    return moment(this.props.earthquake.timestamp).startOf('hours').fromNow();
+  },
+
+  _getTitle: function() {
     var arr = this.props.earthquake.humanReadableLocation.split(/\s+/)
 
     return arr[arr.length - 1]

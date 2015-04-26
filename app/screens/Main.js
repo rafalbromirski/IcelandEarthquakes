@@ -22,10 +22,23 @@ var MainScreen = React.createClass({
   },
 
   componentDidMount: function() {
-    this.fetchData();
+    this._fetchData();
   },
 
-  fetchData: function() {
+  render: function() {
+    if(!this.state.loaded) {
+      return this._renderLoadingView();
+    }
+
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this._renderRow}
+      />
+    );
+  },
+
+  _fetchData: function() {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
@@ -37,43 +50,30 @@ var MainScreen = React.createClass({
       .done();
   },
 
-  render: function() {
-    if(!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow}
-      />
-    );
-  },
-
-  renderLoadingView: function() {
+  _renderLoadingView: function() {
     return (
       <LoadingScreen/>
     );
   },
 
-  renderRow: function(earthquake) {
+  _renderRow: function(earthquake) {
     return (
       <ListRow
-        onSelect={() => this.selectRow(earthquake)}
+        onSelect={() => this._selectRow(earthquake)}
         earthquake={earthquake}
       />
     );
   },
 
-  selectRow: function(earthquake) {
+  _selectRow: function(earthquake) {
     this.props.navigator.push({
-      title: this.getTitle(earthquake.humanReadableLocation),
+      title: this._getTitle(earthquake.humanReadableLocation),
       component: DetailsScreen,
       passProps: {earthquake},
     });
   },
 
-  getTitle: function(title) {
+  _getTitle: function(title) {
     var arr = title.split(/\s+/);
 
     return arr[arr.length - 1];

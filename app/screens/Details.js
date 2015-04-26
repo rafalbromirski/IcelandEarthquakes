@@ -11,10 +11,6 @@ var Panel = require('../modules/Panel');
 var Map = require('../modules/Map');
 
 var DetailsScreen = React.createClass({
-  _getRelativeTime: function() {
-    return moment(this.props.earthquake.timestamp).startOf('hours').fromNow();
-  },
-
   render: function() {
     return (
       <ScrollView>
@@ -26,6 +22,10 @@ var DetailsScreen = React.createClass({
         <Panel label="Quality" text={this.props.earthquake.quality + "%"} />
       </ScrollView>
     );
+  },
+
+  _getRelativeTime: function() {
+    return moment(this.props.earthquake.timestamp).startOf('hours').fromNow();
   },
 });
 
