@@ -4,43 +4,28 @@ var React = require('react-native');
 var {
   StyleSheet,
   ScrollView,
-  MapView,
 } = React;
 
 var moment = require('moment');
 var Panel = require('../modules/Panel');
+var Map = require('../modules/Map');
 
 var DetailsScreen = React.createClass({
-  getRegion: function() {
-    return {
-      latitude: this.props.earthquake.latitude,
-      longitude: this.props.earthquake.longitude,
-      latitudeDelta: 1,
-      longitudeDelta: 1,
-    }
-  },
-
-  getRelativeTime: function() {
+  _getRelativeTime: function() {
     return moment(this.props.earthquake.timestamp).startOf('hours').fromNow();
   },
 
   render: function() {
     return (
       <ScrollView>
-        <MapView region={this.getRegion()} style={styles.map} />
+        <Map earthquake={this.props.earthquake} />
         <Panel label="Location" text={this.props.earthquake.humanReadableLocation} />
-        <Panel label="When" text={this.getRelativeTime()} />
+        <Panel label="When" text={this._getRelativeTime()} />
         <Panel label="Depth" text={this.props.earthquake.depth} />
         <Panel label="Size" text={this.props.earthquake.size} />
         <Panel label="Quality" text={this.props.earthquake.quality + "%"} />
       </ScrollView>
     );
-  },
-});
-
-var styles = StyleSheet.create({
-  map: {
-    height: 250,
   },
 });
 
