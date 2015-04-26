@@ -8,9 +8,9 @@ var {
 } = React;
 
 var moment = require('moment');
-var Panel = require('./Panel');
+var Panel = require('../modules/Panel');
 
-var EarthquakeScreen = React.createClass({
+var DetailsScreen = React.createClass({
   getRegion: function() {
     return {
       latitude: this.props.earthquake.latitude,
@@ -44,4 +44,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = EarthquakeScreen;
+module.exports = DetailsScreen;

@@ -5,13 +5,13 @@ var {
   ListView,
 } = React;
 
-var LoadingScreen = require('./LoadingScreen');
-var EarthquakeScreen = require('./EarthquakeScreen');
-var EarthquakeRow = require('./EarthquakeRow');
+var LoadingScreen = require('./Loading');
+var DetailsScreen = require('./Details');
+var ListRow = require('../modules/ListRow');
 
 var REQUEST_URL = "http://apis.is/earthquake/is";
 
-var EarthquakesScreen = React.createClass({
+var MainScreen = React.createClass({
   getInitialState: function() {
     return {
       dataSource: new ListView.DataSource({
@@ -58,7 +58,7 @@ var EarthquakesScreen = React.createClass({
 
   renderRow: function(earthquake) {
     return (
-      <EarthquakeRow
+      <ListRow
         onSelect={() => this.selectRow(earthquake)}
         earthquake={earthquake}
       />
@@ -68,7 +68,7 @@ var EarthquakesScreen = React.createClass({
   selectRow: function(earthquake) {
     this.props.navigator.push({
       title: this.getTitle(earthquake.humanReadableLocation),
-      component: EarthquakeScreen,
+      component: DetailsScreen,
       passProps: {earthquake},
     });
   },
@@ -80,4 +80,4 @@ var EarthquakesScreen = React.createClass({
   }
 });
 
-module.exports = EarthquakesScreen;
+module.exports = MainScreen;

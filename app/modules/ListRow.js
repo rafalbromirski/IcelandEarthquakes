@@ -10,7 +10,7 @@ var {
 
 var moment = require('moment');
 
-var EarthquakeRow = React.createClass({
+var ListRow = React.createClass({
   underlayColor: function() {
     return '#f2f2f2';
   },
@@ -73,4 +73,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = EarthquakeRow;
+module.exports = ListRow;
